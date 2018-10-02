@@ -1,0 +1,19 @@
+{% extends 'blog/shared.html' %}
+
+{% block content_block %}
+<div class="container">
+    <h2>Login (must be admin)</h2>
+
+    {% if form.errors %}
+        <p>Username and password not recognized</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Login">
+        <!-- next from views.login, after logged in -->
+        <input type="hidden" name="next" value="{{next}}">
+
+    </form>
+</div>
+{% endblock %}

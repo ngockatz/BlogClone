@@ -1,0 +1,8 @@
+{% extends 'blog/shared.html' %}
+{% block content_block %}
+<form method="POST">
+    {% csrf_token %}
+    <p>Sure want to delete {{object}}?</p> <!-- default object being deleted -->
+    <input type="submit" class="btn btn-danger" value="Confirm">
+</form>
+{% endblock %}
