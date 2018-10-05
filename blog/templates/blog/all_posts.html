@@ -5,9 +5,9 @@
     <div class="post">
         <h1><a href="{% url 'post_content' pk=post.pk %}">{{post.title}}</a> </h1>
         <div class="date">
-            <p>Date published: {{post.published|date:'D M Y'}}</p>
+            <p>Date published: {{post.date_publish|date:'D M Y'}}</p>
         </div>
-        <a href="{% url 'post_content' pk=post.pk %}">Comments:{{post.approve_comments.count}}</a>
+        <a href="{% url 'post_content' pk=post.pk %}">Comments: {{post.comments.count}}</a>
     </div>
     {% endfor %}
 </div>

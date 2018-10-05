@@ -9,7 +9,7 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)  # superuser
     title = models.CharField(max_length=160)
     text = models.TextField()
-    date_create = models.DateTimeField(default=timezone.now())
+    date_create = models.DateTimeField(default=timezone.now)
     date_publish = models.DateTimeField(blank=True, null=True)
 
     def set_publish_date(self):

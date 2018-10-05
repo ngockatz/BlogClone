@@ -1,8 +1,8 @@
 {% extends 'blog/shared.html' %}
 {% block content_block %}
-{%% for post in post_list}
+{% for post in post_list %}
 <div>
-    <p>created:{{post.date_create|date:'d-m-Y'}}</p>
+    <p>Created on :{{post.date_create|date:'d-m-Y'}}</p>
     <h1>
         <a href="{% url 'post_content' pk=post.pk%}">
             {{post.title}}

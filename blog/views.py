@@ -20,13 +20,14 @@ class AllPostsView(ListView):
     model = Post
     template_name = 'blog/all_posts.html'  # override default post_list.html template
     def get_queryset(self):
-        # SELECT * FROM Post WHERE date_published <= now
+        # SELECT * FROM Post WHERE date_publish <= now
         return Post.objects.filter(date_publish__lte=timezone.now()) \
             .order_by('-date_publish')  # newest to oldest
 
 
 class PostContentView(DetailView):
     model = Post
+    template_name = 'blog/post_content.html'  # override default post_detail.html template
 
 
 class CreatePostView(LoginRequiredMixin, CreateView):  # required login to create
@@ -52,7 +53,7 @@ class DraftListView(LoginRequiredMixin, ListView):
     login_url = '/login'
     redirect_field_name = 'blog/all_posts.html'
     model = Post
-
+    template_name = 'blog/drafts.html'
     def get_queryset(self):
         return Post.objects.filter(date_publish__isnull=True).order_by('date_create')
 
@@ -68,9 +69,9 @@ def add_comment_to_post(request, pk):  # pk from request call
             comment.post = post
             comment.save()
             return redirect('post_content', pk=post.pk)
-        else:
-            form = CommentForm()
-        return render(request, 'blog/comment_form.html', {'form': form})
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comment_form.html', {'form': form})
 
 
 @login_required
@@ -91,5 +92,5 @@ def comment_remove(request, pk):
 @login_required
 def publish_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post.publish
+    post.set_publish_date()
     return redirect('post_content', pk=pk)
