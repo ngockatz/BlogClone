@@ -11,7 +11,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" class="btn btn-primary" value="Login">
-        <!-- next from views.login, after logged in -->
+        <!-- redirect to desired page after prompting for login -->
         <input type="hidden" name="next" value="{{next}}">
 
     </form>

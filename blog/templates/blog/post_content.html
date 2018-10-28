@@ -2,15 +2,15 @@
 {% block content_block %}
     <h1>{{object.title}}</h1> <!-- default from DetailView, either object or model in lowercase -->
     {% if object.date_publish %}
-        <div>{{object.date_publish}}</div>
+        <div>{{object.date_publish|date:'d-m-Y'}}</div>
     {% else %}
         <a class="btn btn-default" href="{% url 'publish_post' pk=post.pk %}">Publish</a>
     {% endif %}
     <p>{{post.text|safe|linebreaksbr}}</p> <!-- medium editor -->
     {% if user.is_authenticated %}
-        <button type="button" class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}">
+        <a type="button" class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}">
             <span class="glyphicon glyphicon-pencil">Edit</span>
-        </button>
+        </a>
         <a class="btn btn-primary" href="{% url 'post_delete' pk=post.pk %}">
             <span class="fa fa-remove">Remove</span>
         </a>

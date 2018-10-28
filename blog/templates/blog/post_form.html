@@ -1,6 +1,6 @@
 {% extends 'blog/shared.html' %}
 {% block content_block %}
-<h1>Create or Edit Post</h1>
+<h1>Create/Update Post</h1>
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}

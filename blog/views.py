@@ -19,6 +19,7 @@ class AboutView(TemplateView):
 class AllPostsView(ListView):
     model = Post
     template_name = 'blog/all_posts.html'  # override default post_list.html template
+
     def get_queryset(self):
         # SELECT * FROM Post WHERE date_publish <= now
         return Post.objects.filter(date_publish__lte=timezone.now()) \
@@ -54,12 +55,13 @@ class DraftListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'blog/all_posts.html'
     model = Post
     template_name = 'blog/drafts.html'
-    def get_queryset(self):
+
+    def get_queryset(self):  # filter records
         return Post.objects.filter(date_publish__isnull=True).order_by('date_create')
 
 
-@login_required
-def add_comment_to_post(request, pk):  # pk from request call
+# @login_required
+def add_comment_to_post(request, pk):  # pk from request call/link
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == 'POST':
@@ -76,7 +78,7 @@ def add_comment_to_post(request, pk):  # pk from request call
 
 @login_required
 def comment_approve(request, pk):
-    comment = get_object_or_404(Comment, pk= pk)
+    comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
     return redirect('post_content', pk=comment.post.pk)
 
